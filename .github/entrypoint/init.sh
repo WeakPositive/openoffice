@@ -149,10 +149,20 @@ elif [[ "${JOBS_ID}" == "2" ]]; then
   
 elif [[ "${JOBS_ID}" == "3" ]]; then
 
+  find -not -path "./.git/*" -not -name ".git" -delete
+  shopt -s dotglob && cp -R /mnt/disks/deeplearning/tmp/_site/* .
+
+  # Get the config value and save to file.json
+  curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github.v3+json" \
+    "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/variables/JEKYLL_CONFIG" \
+    | jq -r '.value' > _config.yml
+  curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github.v3+json" \
+    "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/variables/ORGS_JSON" \
+    | jq -r '.value' > _data/orgs.json
+
   gist.sh ${BASE} $(pwd)
   if [[ "${WIKI}" != "${BASE}" ]]; then
-    FOLDER=$(yq '.span' /home/runner/_site/_config.yml)
-    find . -type d -name "${FOLDER}" -prune -exec sh -c 'gist.sh ${WIKI} "$1"' sh {} \;
+    find . -type d -name "$(yq '.span' _config.yml)" -prune -exec sh -c 'gist.sh ${WIKI} "$1"' sh {} \;
   fi
 
 else
@@ -165,11 +175,6 @@ else
 
   rm -rf ${RUNNER_TEMP//\\//}/gh-source/.git
   shopt -s dotglob && mv -f ${RUNNER_TEMP//\\//}/gh-source/* .
-
-  # Get the variable value and save to file.json
-  curl -s -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github.v3+json" \
-    "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/variables/JEKYLL_CONFIG" \
-    | jq -r '.value' > _config.yml
 
   echo -e "\n$hr\nCONFIG\n$hr" && cat _config.yml
   echo -e "\n$hr\nENVIRONTMENT\n$hr" && printenv | sort

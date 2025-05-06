@@ -106,11 +106,6 @@ runs:
   
         else      
           
-          cd ${{ github.workspace }}
-          find -not -path "./.git/*" -not -name ".git" | grep git
-          find -not -path "./.git/*" -not -name ".git" -delete
-          shopt -s dotglob && cp -R /mnt/disks/deeplearning/tmp/_site/* .
-
         # Assign the environment variable correctly
           #COMMIT="${{ env.LATEST_COMMIT }}"
 

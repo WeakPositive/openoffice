@@ -204,6 +204,8 @@ runs:
           GITHUB_REPOSITORY=${{ github.repository }}
           TARGET_REPOSITORY=${{ env.TARGET_REPOSITORY }}
           WORKSPACE=/workspaces/${{ github.event.repository.name }}
+          OUTPUT=user_data/ft_client/test_client/results/output.txt
+          ARTIFACT=user_data/ft_client/test_client/results/orgs.json
 
     - name: 🗑️ Delete Docker Tags AND Images
       id: delete_images
