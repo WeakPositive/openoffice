@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: /grammar/sitemap_index.xml
+Sitemap: /openoffice/sitemap_index.xml
