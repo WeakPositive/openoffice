@@ -179,8 +179,8 @@ runs:
         #export IREE_LLVM_ENABLE_BACKTRACE=1
         #export LLVM_SYMBOLIZER_PATH=$(which llvm-symbolizer)
 
-        pip freeze | grep iree
-        pip cache purge && find . -type d -name "__pycache__" -exec rm -rf {} +
+        FILE="user_data/config_examples/config_params.example.json"
+        [[ -n "$PARAM" ]] && jq --arg param "$PARAM" 'walk(if type == "object" and has("optimize") then .optimize = (path | last == $param) else . end)' "$FILE" > tmp.json && mv tmp.json "$FILE"
         python user_data/ft_client/test_client/app.py orgs.json ${{ env.ID }}
 
         ##Ref: https://github.com/eq19/maps/tree/v3/pythonCode
