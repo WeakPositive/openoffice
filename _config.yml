@@ -1,10 +1,10 @@
-id: 164
+id: 151
 user: eq19
-span: span-145
+span: span-132
 title: eQuantum
 baseurl: /openoffice
 repository: WeakPositive/openoffice
-action: WeakPositive/grammar/actions/runs/15653222170
+action: WeakPositive/grammar/actions/runs/15743391665
 description: eQuantum Project - Weak Positive Boson
 
 #debug:
@@ -48,6 +48,6 @@ plugins:
   - jekyll-optional-front-matter
 
 track:
-  spin: [12, 7]
+  spin: [11, 7]
   pinned: [maps, feed, lexer, parser, syntax, grammar, openoffice, mtkimg, ace, buildozer, firadisk, underscore]
   organization: [Chetabahana, FeedMapping, GlobalZones, HybridModels, JunctionTerms, KernelPatterns, MappingSystem, NeuralSystem, ObjectModules, VirtualNetworks, WeakNegative, WeakPositive, ZeroWeak]
